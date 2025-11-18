@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Dear Princess — Cosmic Heart Swipe</title>
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
 <style>
@@ -41,7 +42,7 @@ canvas { position: absolute; top: 0; left: 0; display: block; pointer-events: no
   left: 50%;
   transform: translateX(-50%);
   font-family: 'Great Vibes', cursive;
-  font-size: clamp(25px, 3vw, 60px);
+  font-size: clamp(25px, 5vw, 60px);
   line-height: 1.4;
   color: black;
   -webkit-text-stroke: 0px;
@@ -57,7 +58,7 @@ canvas { position: absolute; top: 0; left: 0; display: block; pointer-events: no
   bottom: 15%;
   right: 5%;
   font-family: 'Great Vibes', cursive;
-  font-size: clamp(25px, 3vw, 60px);
+  font-size: clamp(25px, 5vw, 60px);
   line-height: 1.4;
   color: black;
   -webkit-text-stroke: 0px;
@@ -133,11 +134,7 @@ canvas { position: absolute; top: 0; left: 0; display: block; pointer-events: no
 // Canvas for particles
 const clickCanvas = document.getElementById('clickCanvas');  
 const ctx = clickCanvas.getContext('2d');  
-
-function resizeCanvas() {  
-  clickCanvas.width = window.innerWidth;  
-  clickCanvas.height = window.innerHeight;  
-}  
+function resizeCanvas() { clickCanvas.width = window.innerWidth; clickCanvas.height = window.innerHeight; }  
 resizeCanvas();  
 window.addEventListener('resize', resizeCanvas);  
 
@@ -155,12 +152,7 @@ function animateBackground() {
     background: `linear-gradient(${bgAngle}deg, ${bgColors[nextIndex].start}, ${bgColors[nextIndex].middle}, ${bgColors[nextIndex].end})`,  
     duration: 3.5,  
     ease: "sine.inOut",  
-    onComplete: () => {  
-      bgIndex = nextIndex;  
-      bgAngle += 10;  
-      if(bgAngle > 180) bgAngle = 120;  
-      animateBackground();  
-    }  
+    onComplete: () => { bgIndex = nextIndex; bgAngle += 10; if(bgAngle>180) bgAngle=120; animateBackground(); }  
   });  
 }  
 animateBackground();  
@@ -168,195 +160,75 @@ animateBackground();
 // Particle class
 class Particle {  
   constructor(x,y,color='rgba(255,182,193,1)'){  
-    this.x = x;  
-    this.y = y;  
-    this.radius = Math.random()*4+2;  
-    this.vx = (Math.random()-0.5)*2; 
-    this.vy = (Math.random()-0.5)*2;
-    this.alpha = 0.7;  
-    this.color = color;
-    this.gravity = 0.05; 
+    this.x = x; this.y = y; this.radius = Math.random()*4+2;  
+    this.vx = (Math.random()-0.5)*2; this.vy = (Math.random()-0.5)*2;  
+    this.alpha = 0.7; this.color = color; this.gravity = 0.05; 
   }  
-  update(){  
-    this.x += this.vx;  
-    this.y += this.vy + this.gravity;  
-    if(this.alpha>0.1) this.alpha -= 0.003;  
-  }  
-  draw(ctx){  
-    ctx.beginPath();  
-    ctx.fillStyle = this.color;  
-    ctx.arc(this.x,this.y,this.radius,0,Math.PI*2);  
-    ctx.fill();  
-  }  
+  update(){ this.x += this.vx; this.y += this.vy + this.gravity; if(this.alpha>0.1)this.alpha-=0.003; }  
+  draw(ctx){ ctx.beginPath(); ctx.fillStyle=this.color; ctx.arc(this.x,this.y,this.radius,0,Math.PI*2); ctx.fill(); }  
 }  
 
-let particles = [];  
+let particles=[];  
 function animateParticles(){  
   ctx.clearRect(0,0,clickCanvas.width,clickCanvas.height);  
   for(let i=particles.length-1;i>=0;i--){  
-    let p = particles[i];  
-    p.update();  
-    p.draw(ctx);  
-    if(p.alpha <= 0.05) particles.splice(i,1);  
+    let p=particles[i]; p.update(); p.draw(ctx);  
+    if(p.alpha<=0.05) particles.splice(i,1);  
   }  
   requestAnimationFrame(animateParticles);  
 }  
 animateParticles();  
 
-let isDrawing = false;  
-function addParticles(x,y){  
-  for(let i=0;i<3;i++){ 
-    particles.push(new Particle(x + Math.random()*10-5, y + Math.random()*10-5));  
-  }  
-}  
-
-['mousedown','touchstart'].forEach(ev=>{
-  document.body.addEventListener(ev,e=>{
-    isDrawing=true;
-    let x = e.touches ? e.touches[0].clientX : e.clientX;
-    let y = e.touches ? e.touches[0].clientY : e.clientY;
-    addParticles(x,y);
-  });
-});
-
-['mousemove','touchmove'].forEach(ev=>{
-  document.body.addEventListener(ev,e=>{
-    if(isDrawing){
-      e.preventDefault();
-      let x = e.touches ? e.touches[0].clientX : e.clientX;
-      let y = e.touches ? e.touches[0].clientY : e.clientY;
-      addParticles(x,y);
-    }
-  });
-});
-
-['mouseup','touchend'].forEach(ev=>{
-  document.body.addEventListener(ev,()=>{ isDrawing=false; });
-});
+let isDrawing=false;  
+function addParticles(x,y){ for(let i=0;i<3;i++){ particles.push(new Particle(x+Math.random()*10-5,y+Math.random()*10-5)); } }  
+['mousedown','touchstart'].forEach(ev=>{ document.body.addEventListener(ev,e=>{ isDrawing=true; let x=e.touches?e.touches[0].clientX:e.clientX; let y=e.touches?e.touches[0].clientY:e.clientY; addParticles(x,y); }); });  
+['mousemove','touchmove'].forEach(ev=>{ document.body.addEventListener(ev,e=>{ if(isDrawing){ e.preventDefault(); let x=e.touches?e.touches[0].clientX:e.clientX; let y=e.touches?e.touches[0].clientY:e.clientY; addParticles(x,y); } }); });  
+['mouseup','touchend'].forEach(ev=>{ document.body.addEventListener(ev,()=>{ isDrawing=false; }); });  
 
 // Text typing
-function typeText(element, text, delay=70, callback=null){
-  let i=0;
-  gsap.to(element,{opacity:1,duration:1});
-  function typing(){
-    if(i<text.length){
-      element.innerHTML = text.substring(0,i+1);
-      let rect = element.getBoundingClientRect();
-      addParticles(rect.left + Math.random()*rect.width, rect.top + Math.random()*rect.height);
-      i++;
-      setTimeout(typing, delay);
-    } else if(callback) callback();
-  }
-  typing();
-}
+function typeText(element,text,delay=70,callback=null){ let i=0; gsap.to(element,{opacity:1,duration:1}); function typing(){ if(i<text.length){ element.innerHTML=text.substring(0,i+1); let rect=element.getBoundingClientRect(); addParticles(rect.left+Math.random()*rect.width,rect.top+Math.random()*rect.height); i++; setTimeout(typing,delay); } else if(callback) callback(); } typing(); }  
 
-const heading = document.getElementById('heading');
-const praiseText = document.getElementById('praiseText');
-const praiseTextRight = document.getElementById('praiseTextRight');
+const heading=document.getElementById('heading');  
+const praiseText=document.getElementById('praiseText');  
+const praiseTextRight=document.getElementById('praiseTextRight');  
 
-gsap.to(heading,{opacity:1,duration:1,delay:0.5,scale:1.05,ease:"power2.out",onComplete:()=>{
-  typeText(praiseText, `You are the beautiful light\nThat shines through every moment\nYour grace and charm inspire\nAll hearts around you`,70,()=>{
-    typeText(praiseTextRight, `Your smile is like sunshine\nYour words bring peace and joy\nYou uplift every soul nearby\nForever adored and loved`,70);
-  });
+gsap.to(heading,{opacity:1,duration:1,delay:0.5,scale:1.05,ease:"power2.out",onComplete:()=>{  
+  typeText(praiseText, `You are the beautiful light\nThat shines through every moment\nYour grace and charm inspire\nAll hearts around you`,70,()=>{  
+    typeText(praiseTextRight, `Your smile is like sunshine\nYour words bring peace and joy\nYou uplift every soul nearby\nForever adored and loved`,70);  
+  });  
 }});
 
 // Heart swipe
-const heart = document.getElementById('heartSwipe');
-const track = document.getElementById('heartTrack');
-let dragging = false, startX=0;
-function setHeartPosition(offset){
-  const maxOffset = track.offsetWidth - heart.offsetWidth;
-  heart.style.left = `${Math.min(Math.max(offset,0), maxOffset)}px`;
-}
-function createHeartTrail(x,y){
-  for(let i=0;i<3;i++){
-    particles.push(new Particle(x + Math.random()*6-3, y + Math.random()*6-3, 'pink'));
-  }
-}
-function shakeHeart(){
-  gsap.fromTo(heart,{x:0, rotation:0},{x:0, rotation:15, duration:0.05, yoyo:true, repeat:5, onComplete:()=>{ gsap.to(heart,{scale:1,duration:0.2}); }});
-}
+const heart=document.getElementById('heartSwipe');  
+const track=document.getElementById('heartTrack');  
+let dragging=false,startX=0;  
+function setHeartPosition(offset){ const maxOffset=track.offsetWidth-heart.offsetWidth; heart.style.left=`${Math.min(Math.max(offset,0),maxOffset)}px`; }  
+function createHeartTrail(x,y){ for(let i=0;i<3;i++){ particles.push(new Particle(x+Math.random()*6-3,y+Math.random()*6-3,'pink')); } }  
+function shakeHeart(){ gsap.fromTo(heart,{x:0,rotation:0},{x:0,rotation:15,duration:0.05,yoyo:true,repeat:5,onComplete:()=>{ gsap.to(heart,{scale:1,duration:0.2}); }}); }  
 
-['mousedown','touchstart'].forEach(ev=>{
-  heart.addEventListener(ev,e=>{
-    dragging=true;
-    startX = e.touches ? e.touches[0].clientX - heart.offsetLeft : e.clientX - heart.offsetLeft;
-    gsap.to(heart,{scale:1.5,duration:0.2});
-    shakeHeart();
-  });
-});
+['mousedown','touchstart'].forEach(ev=>{ heart.addEventListener(ev,e=>{ dragging=true; startX=e.touches?e.touches[0].clientX-heart.offsetLeft:e.clientX-heart.offsetLeft; gsap.to(heart,{scale:1.5,duration:0.2}); shakeHeart(); }); });  
+['mousemove','touchmove'].forEach(ev=>{ document.addEventListener(ev,e=>{ if(dragging){ e.preventDefault(); let clientX=e.touches?e.touches[0].clientX:e.clientX; let offset=clientX-startX; setHeartPosition(offset); createHeartTrail(offset+heart.offsetWidth/2,heart.offsetTop+heart.offsetHeight/2); if(offset>=track.offsetWidth-heart.offsetWidth-5) window.location.href="love.html"; } }); });  
+['mouseup','touchend'].forEach(ev=>{ document.addEventListener(ev,()=>{ dragging=false; gsap.to(heart,{scale:1,duration:0.2}); }); });
 
-['mousemove','touchmove'].forEach(ev=>{
-  document.addEventListener(ev,e=>{
-    if(dragging){
-      e.preventDefault();
-      let clientX = e.touches ? e.touches[0].clientX : e.clientX;
-      let offset = clientX - startX;
-      setHeartPosition(offset);
-      createHeartTrail(offset + heart.offsetWidth/2, heart.offsetTop + heart.offsetHeight/2);
-      if(offset >= track.offsetWidth - heart.offsetWidth - 5) window.location.href="love.html";
-    }
-  });
-});
+// Cosmic particles
+const cosmicCanvas=document.createElement('canvas');  
+cosmicCanvas.style.position='absolute'; cosmicCanvas.style.top='0'; cosmicCanvas.style.left='0'; cosmicCanvas.style.width='100%'; cosmicCanvas.style.height='100%'; cosmicCanvas.style.pointerEvents='none';  
+document.body.appendChild(cosmicCanvas);  
+const cctx=cosmicCanvas.getContext('2d');  
+function resizeCosmic(){ cosmicCanvas.width=window.innerWidth; cosmicCanvas.height=window.innerHeight; }  
+resizeCosmic();  
+window.addEventListener('resize', resizeCosmic);  
 
-['mouseup','touchend'].forEach(ev=>{
-  document.addEventListener(ev,()=>{ dragging=false; gsap.to(heart,{scale:1,duration:0.2}); });
-});
+class CosmicParticle { constructor(x,y){ this.x=x; this.y=y; this.radius=Math.random()*4+2; this.vx=(Math.random()-0.5)*4; this.vy=(Math.random()-0.5)*4; this.alpha=1; } update(){ this.x+=this.vx; this.y+=this.vy; this.alpha-=0.02; } draw(ctx){ ctx.beginPath(); ctx.fillStyle=`rgba(255,182,193,${this.alpha})`; ctx.arc(this.x,this.y,this.radius,0,Math.PI*2); ctx.fill(); } }  
 
-// Cosmic particle effect
-const cosmicCanvas = document.createElement('canvas');
-cosmicCanvas.style.position = 'absolute';
-cosmicCanvas.style.top = '0';
-cosmicCanvas.style.left = '0';
-cosmicCanvas.style.width = '100%';
-cosmicCanvas.style.height = '100%';
-cosmicCanvas.style.pointerEvents = 'none';
-document.body.appendChild(cosmicCanvas);
+let cosmicParticles=[];  
+function animateCosmic(){ cctx.clearRect(0,0,cosmicCanvas.width,cosmicCanvas.height); for(let i=cosmicParticles.length-1;i>=0;i--){ let p=cosmicParticles[i]; p.update(); p.draw(cctx); if(p.alpha<=0) cosmicParticles.splice(i,1); } requestAnimationFrame(animateCosmic); }  
+animateCosmic();  
 
-const cctx = cosmicCanvas.getContext('2d');
-function resizeCosmic(){ cosmicCanvas.width = window.innerWidth; cosmicCanvas.height = window.innerHeight; }
-resizeCosmic();
-window.addEventListener('resize', resizeCosmic);
-
-class CosmicParticle {
-  constructor(x,y){
-    this.x=x;
-    this.y=y;
-    this.radius=Math.random()*4+2;
-    this.vx=(Math.random()-0.5)*4;
-    this.vy=(Math.random()-0.5)*4;
-    this.alpha=1;
-  }
-  update(){ this.x+=this.vx; this.y+=this.vy; this.alpha-=0.02; }
-  draw(ctx){
-    ctx.beginPath();
-    ctx.fillStyle=`rgba(255,182,193,${this.alpha})`;
-    ctx.arc(this.x,this.y,this.radius,0,Math.PI*2);
-    ctx.fill();
-  }
-}
-
-let cosmicParticles = [];
-function animateCosmic(){
-  cctx.clearRect(0,0,cosmicCanvas.width,cosmicCanvas.height);
-  for(let i=cosmicParticles.length-1;i>=0;i--){
-    let p = cosmicParticles[i];
-    p.update();
-    p.draw(cctx);
-    if(p.alpha<=0) cosmicParticles.splice(i,1);
-  }
-  requestAnimationFrame(animateCosmic);
-}
-animateCosmic();
-
-let sliding=false;
-function addCosmic(x,y){
-  for(let i=0;i<5;i++){
-    cosmicParticles.push(new CosmicParticle(x+Math.random()*10-5, y+Math.random()*10-5));
-  }
-}
-['mousedown','touchstart'].forEach(ev=>{ document.body.addEventListener(ev,e=>{ sliding=true; let x = e.touches ? e.touches[0].clientX : e.clientX; let y = e.touches ? e.touches[0].clientY : e.clientY; addCosmic(x,y); }); });
-['mousemove','touchmove'].forEach(ev=>{ document.body.addEventListener(ev,e=>{ if(sliding){ e.preventDefault(); let x = e.touches ? e.touches[0].clientX : e.clientX; let y = e.touches ? e.touches[0].clientY : e.clientY; addCosmic(x,y); } }); });
+let sliding=false;  
+function addCosmic(x,y){ for(let i=0;i<5;i++){ cosmicParticles.push(new CosmicParticle(x+Math.random()*10-5,y+Math.random()*10-5)); } }  
+['mousedown','touchstart'].forEach(ev=>{ document.body.addEventListener(ev,e=>{ sliding=true; let x=e.touches?e.touches[0].clientX:e.clientX; let y=e.touches?e.touches[0].clientY:e.clientY; addCosmic(x,y); }); });  
+['mousemove','touchmove'].forEach(ev=>{ document.body.addEventListener(ev,e=>{ if(sliding){ e.preventDefault(); let x=e.touches?e.touches[0].clientX:e.clientX; let y=e.touches?e.touches[0].clientY:e.clientY; addCosmic(x,y); } }); });  
 ['mouseup','touchend'].forEach(ev=>{ document.body.addEventListener(ev,()=>{ sliding=false; }); });
 </script>
 
