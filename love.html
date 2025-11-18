@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Princess Day — Dear Wife</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
+<style>
+body{
+  margin:0;
+  padding:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#ff8ac9,#ffffff,#000000);
+  overflow:hidden;
+  color:#fff;
+  text-align:center;
+  transition: background 0.3s linear;
+}
+.container{
+  width:90%;
+  max-width:430px;
+  padding:25px 20px;
+  border:2px solid #fff;
+  border-radius:20px;
+  backdrop-filter:blur(5px);
+  position:relative;
+  z-index:2;
+  overflow:hidden;
+}
+.heading{
+  font-family:'Poppins',sans-serif;
+  font-size:38px;
+  font-weight:800;
+  line-height:1.1;
+  opacity:0;
+}
+.wife{
+  font-family:'Great Vibes',cursive;
+  font-size:85px;
+  margin-top:25px;
+  margin-bottom:40px;
+  color:#fff;
+  opacity:0;
+  text-shadow:0 0 6px rgba(255,255,255,.4),
+              0 0 14px rgba(255,255,255,.3),
+              0 0 24px rgba(255,255,255,.2);
+  position:relative;
+  overflow:visible;
+}
+.wife::after{
+  content:"";
+  position:absolute;
+  bottom:-18px;
+  left:50%;
+  transform:translateX(-50%);
+  width:74%;
+  height:3.5px;
+  background:#fff;
+  border-radius:4px;
+}
+#typing{
+  font-family:'Poppins',sans-serif;
+  font-size:18px;
+  font-weight:300;
+  line-height:1.45;
+  margin-top:10px;
+  white-space:pre-line;
+  background:linear-gradient(180deg,#fff,#000);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  border-right:3px solid rgba(255,255,255,.9);
+  padding-right:4px;
+  animation:cursorBlink .8s infinite;
+  opacity:0;
+}
+@keyframes cursorBlink{
+  0%{border-color:rgba(255,255,255,.9);}
+  50%{border-color:transparent;}
+  100%{border-color:rgba(255,255,255,.9);}
+}
+canvas{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index:1;
+  pointer-events:none;
+}
+#love{
+  font-family:'Great Vibes',cursive;
+  font-size:55px;
+  margin-top:-5px;
+  opacity:0;
+  position:relative;
+  color:#fff;
+  text-shadow:0 0 6px rgba(255,255,255,.8),
+              0 0 12px rgba(255,255,255,.5),
+              0 0 25px rgba(255,255,255,.35);
+}
+.glitter{
+  position:absolute;
+  width:6px;
+  height:6px;
+  background:pink;
+  border-radius:50%;
+  opacity:0.8;
+  pointer-events:none;
+}
+#crown{
+  position:absolute;
+  width:50px;
+  top:-60px;
+  left:50%;
+  transform:translateX(-50%);
+  opacity:0;
+  z-index:3;
+}
+#crownSparkle{
+  position:absolute;
+  width:100px;
+  height:100px;
+  top:-20px;
+  left:50%;
+  transform:translateX(-50%);
+  pointer-events:none;
+  z-index:4;
+}
+button#playLoveBtn{
+  padding:10px 20px;
+  font-size:18px;
+  font-family:'Poppins',sans-serif;
+  border:none;
+  border-radius:10px;
+  background: #ff8ac9;
+  color:#fff;
+  cursor:pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  margin-top:20px;
+}
+</style>
+</head>
+<body>
+
+<canvas id="dust"></canvas>
+
+<div class="container">
+  <div class="heading" id="heading">Happy<br>Princess Day</div>
+  <div class="wife" id="wife">Dear Wife</div>
+  <div id="love">I Love You</div>
+  <div id="typing"></div>
+
+  <!-- Crown SVG -->
+  <svg id="crown" viewBox="0 0 64 64" fill="gold">
+    <polygon points="2,62 62,62 54,20 44,42 32,12 20,42 10,20" stroke="orange" stroke-width="2"/>
+  </svg>
+  <canvas id="crownSparkle"></canvas>
+
+  <!-- Local audio button -->
+  <button id="playLoveBtn">Click Me 💖</button>
+  <audio id="loveSound" src="my.mp3" preload="auto" loop></audio>
+
+  <!-- Confused sound -->
+  <audio id="confusedSound" src="https://assets.mixkit.co/sfx/preview/mixkit-human-grunt-huh-huu-1027.mp3" preload="auto"></audio>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script>
+// particles.js setup
+particlesJS("dust", {
+  particles:{
+    number:{value:160,density:{enable:true,value_area:800}},
+    color:{value:["#ffffff","#ffd1ec","#ffb3f2"]},
+    shape:{type:"circle"},
+    opacity:{value:0.8,random:true},
+    size:{value:2,random:true},
+    line_linked:{enable:false},
+    move:{enable:true,speed:2,direction:"none",random:true,straight:false,out_mode:"out"}
+  },
+  interactivity:{events:{onhover:{enable:false},onclick:{enable:false}},modes:{}},
+  retina_detect:true
+});
+
+const heading = document.getElementById("heading");
+const wife = document.getElementById("wife");
+const typing = document.getElementById("typing");
+const love = document.getElementById("love");
+const crown = document.getElementById("crown");
+const crownCanvas = document.getElementById("crownSparkle");
+const crownCtx = crownCanvas.getContext("2d");
+const sound = document.getElementById("confusedSound");
+const loveAudio = document.getElementById("loveSound");
+const loveBtn = document.getElementById("playLoveBtn");
+
+crownCanvas.width = 100;
+crownCanvas.height = 100;
+
+// Fast moving gradient background
+let bgAngle = 135;
+let bgColors = [
+  { start: "#ff8ac9", middle: "#ffffff", end: "#000000" },
+  { start: "#ffb3f2", middle: "#ffe6f0", end: "#000000" },
+  { start: "#ff99d9", middle: "#ffffff", end: "#111111" }
+];
+let bgIndex = 0;
+function animateBackground() {
+  let nextIndex = (bgIndex + 1) % bgColors.length;
+  gsap.to("body", {
+    background: `linear-gradient(${bgAngle}deg, ${bgColors[nextIndex].start}, ${bgColors[nextIndex].middle}, ${bgColors[nextIndex].end})`,
+    duration: 4,
+    ease: "sine.inOut",
+    onComplete: () => { bgIndex = nextIndex; animateBackground(); }
+  });
+}
+animateBackground();
+
+// Typing text
+function typeText(){
+  let text=`A day of sparkle, softness and pure love.
+
+Today is all about smiles, glitter, warm lights and the gentle beauty of a queen-like feeling.
+
+Every moment is meant to make you feel special, adored and celebrated — just like the princess you are.`;
+  let i=0;
+  function typingEffect(){
+    if(i<text.length){
+      typing.innerHTML=text.substring(0,i+1);
+      i++;
+      setTimeout(typingEffect,85);
+    }
+  }
+  gsap.to(typing,{opacity:1,duration:1,delay:.3,onComplete:typingEffect});
+}
+
+// Animation sequence
+gsap.fromTo("#dust",{opacity:0},{opacity:1,duration:1});
+gsap.to("#dust",{opacity:0.4,duration:2,delay:0.5});
+gsap.to("#dust",{opacity:0.7,duration:2,delay:1.5,repeat:1,yoyo:true,onComplete:()=>{
+  gsap.to(heading,{opacity:1,duration:1.5,scale:1.05,ease:"power2.out"});
+  gsap.to("#dust",{opacity:0.3,duration:2,delay:1.5});
+  gsap.to(wife,{opacity:1,duration:1.5,delay:2.5,scale:1.05,ease:"power2.out"});
+  gsap.to("#dust",{opacity:0.2,duration:2,delay:3.5,onComplete:typeText});
+}});
+
+// I LOVE YOU movement
+gsap.set("#love", { opacity: 0, scale: 0.55, rotation: -12 });
+let loveTL = gsap.timeline({ delay: 7.2 });
+loveTL.to("#love", { opacity: 1, duration: 0.6 })
+      .to("#love", { x: -45, duration: 0.6 })
+      .to("#love", { x: 55, duration: 0.7 })
+      .to("#love", { y: -18, rotation: 10, duration: 0.6 })
+      .to("#love", { y: 15, rotation: -8, duration: 0.6 })
+      .to("#love", { scale: 1.12, duration: 0.49 })
+      .to("#love", { scale: 0.92, duration: 0.42 })
+      .to("#love", { y: 8, rotation: -5, duration: 0.3 })
+      .to("#love", {
+        y: 0,
+        rotation: 0,
+        scale: 1,
+        duration: 1.4,
+        ease: "elastic.out(1, 0.35)",
+        onComplete: ()=>{ humanLikeMovement(love); }
+      });
+
+function humanLikeMovement(target){
+  gsap.to(target, {
+    x: "+=" + (Math.random()*20 - 10),
+    y: "+=" + (Math.random()*20 - 10),
+    rotation: "+=" + (Math.random()*15 - 7),
+    duration: 0.3 + Math.random()*0.3,
+    ease: "power1.inOut",
+    repeat: 5,
+    yoyo: true,
+    onComplete: ()=> humanLikeMovement(target)
+  });
+}
+
+// Glitter
+function createGlitter(){
+  for(let i=0;i<12;i++){
+    let g = document.createElement("div");
+    g.className="glitter";
+    wife.appendChild(g);
+    gsap.set(g,{
+      x: Math.random() * wife.offsetWidth,
+      y: Math.random() * wife.offsetHeight,
+      scale: Math.random()*0.8 + 0.2,
+      opacity: Math.random()
+    });
+    gsap.to(g,{
+      y: "-=" + (30 + Math.random()*20),
+      opacity:0,
+      duration:2 + Math.random(),
+      repeat:-1,
+      yoyo:true,
+      ease:"sine.inOut"
+    });
+  }
+}
+createGlitter();
+
+// Crown drop + sparkle
+gsap.set(crown,{y:-80,opacity:0});
+gsap.to(crown,{
+  y:0,
+  opacity:1,
+  duration:1.2,
+  delay:5.5,
+  ease:"bounce.out",
+  onComplete:()=>{
+    setInterval(()=>{
+      crownCtx.clearRect(0,0,100,100);
+      for(let i=0;i<5;i++){
+        crownCtx.fillStyle = "rgba(255,255,255,"+Math.random()+")";
+        let x = Math.random()*100;
+        let y = Math.random()*50;
+        let size = Math.random()*3+1;
+        crownCtx.beginPath();
+        crownCtx.arc(x,y,size,0,Math.PI*2);
+        crownCtx.fill();
+      }
+    },150);
+  }
+});
+
+// Confused sound on background click (first tap only)
+document.body.addEventListener('click', () => { sound.play(); }, { once: true });
+
+// **LOVE audio button**
+loveBtn.addEventListener('click', () => {
+  loveAudio.play().catch(e => console.log("Audio play blocked:", e));
+});
+</script>
+
+<script>
+// --- Cosmic slide effect ---
+const cosmicCanvas = document.createElement('canvas');
+cosmicCanvas.style.position = 'absolute';
+cosmicCanvas.style.top = '0';
+cosmicCanvas.style.left = '0';
+cosmicCanvas.style.width = '100%';
+cosmicCanvas.style.height = '100%';
+cosmicCanvas.style.pointerEvents = 'none';
+document.body.appendChild(cosmicCanvas);
+
+const cctx = cosmicCanvas.getContext('2d');
+function resizeCosmic(){ cosmicCanvas.width = window.innerWidth; cosmicCanvas.height = window.innerHeight; }
+resizeCosmic();
+window.addEventListener('resize', resizeCosmic);
+
+class CosmicParticle {
+  constructor(x,y){
+    this.x=x; this.y=y;
+    this.radius=Math.random()*4+2;
+    this.vx=(Math.random()-0.5)*4;
+    this.vy=(Math.random()-0.5)*4;
+    this.alpha=1;
+  }
+  update(){ this.x+=this.vx; this.y+=this.vy; this.alpha-=0.02; }
+  draw(ctx){
+    ctx.beginPath();
+    ctx.fillStyle=`rgba(255,182,193,${this.alpha})`;
+    ctx.arc(this.x,this.y,this.radius,0,Math.PI*2);
+    ctx.fill();
+  }
+}
+
+let cosmicParticles = [];
+function animateCosmic(){
+  cctx.clearRect(0,0,cosmicCanvas.width,cosmicCanvas.height);
+  for(let i=cosmicParticles.length-1;i>=0;i--){
+    let p = cosmicParticles[i];
+    p.update();
+    p.draw(cctx);
+    if(p.alpha<=0) cosmicParticles.splice(i,1);
+  }
+  requestAnimationFrame(animateCosmic);
+}
+animateCosmic();
+
+let sliding=false;
+function addCosmic(x,y){
+  for(let i=0;i<5;i++){
+    cosmicParticles.push(new CosmicParticle(x+Math.random()*10-5, y+Math.random()*10-5));
+  }
+}
+document.body.addEventListener('mousedown', e=>{ sliding=true; addCosmic(e.clientX,e.clientY); });
+document.body.addEventListener('mousemove', e=>{ if(sliding) addCosmic(e.clientX,e.clientY); });
+document.body.addEventListener('mouseup', ()=>{ sliding=false; });
+
+document.body.addEventListener('touchstart', e=>{ sliding=true; let t=e.touches[0]; addCosmic(t.clientX,t.clientY); });
+document.body.addEventListener('touchmove', e=>{ if(sliding){ e.preventDefault(); let t=e.touches[0]; addCosmic(t.clientX,t.clientY); } });
+document.body.addEventListener('touchend', ()=>{ sliding=false; });
+</script>
+
+</body>
+</html>
