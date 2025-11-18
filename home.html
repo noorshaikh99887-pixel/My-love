@@ -2,107 +2,108 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dear Princess — Cosmic Heart Swipe</title>
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
 <style>
 body {
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-  overflow: hidden;
+  margin:0;
+  padding:0;
+  height:100vh;
+  overflow:hidden;
   background: linear-gradient(120deg,#ff9ad6,#ffffff,#1a1a1a);
   touch-action: none;
   font-family: 'Poppins', sans-serif;
 }
 
 canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: block;
-  pointer-events: none;
-  z-index: 1;
+  position:absolute;
+  top:0;
+  left:0;
+  display:block;
+  pointer-events:none;
+  z-index:1;
 }
 
 /* Heading */
 #heading {
-  position: absolute;
-  top: 50px;
-  width: 100%;
-  text-align: center;
-  font-family: 'Great Vibes', cursive;
-  font-size: 70px;
-  color: #fff;
-  text-shadow: 0 0 6px rgba(255,255,255,.4), 0 0 14px rgba(255,255,255,.3), 0 0 24px rgba(255,255,255,.2);
-  opacity: 0;
-  z-index: 5;
+  position:absolute;
+  top:5%;
+  width:100%;
+  text-align:center;
+  font-family:'Great Vibes',cursive;
+  font-size:10vw;
+  color:#fff;
+  text-shadow: 0 0 6px rgba(255,255,255,.4),0 0 14px rgba(255,255,255,.3),0 0 24px rgba(255,255,255,.2);
+  opacity:0;
+  z-index:5;
 }
 
 /* Praise text - center */
 #praiseText {
-  position: absolute;
-  top: 150px;
-  width: 90%;
-  max-width: 600px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: 'Great Vibes', cursive;
-  font-size: 24px;
-  line-height: 1.5;
-  color: #fff;
-  -webkit-text-stroke: 0.5px black;
-  text-stroke: 0.5px black;
-  opacity: 0;
-  white-space: pre-line;
-  z-index: 5;
+  position:absolute;
+  top:18%;
+  width:90%;
+  max-width:600px;
+  left:50%;
+  transform:translateX(-50%);
+  font-family:'Great Vibes',cursive;
+  font-size:4vw;
+  line-height:1.5;
+  color:#fff;
+  -webkit-text-stroke:0.5px black;
+  text-stroke:0.5px black;
+  opacity:0;
+  white-space:pre-line;
+  z-index:5;
 }
 
 /* Praise text - bottom right */
 #praiseTextRight {
-  position: absolute;
-  bottom: 150px;
-  right: 50px;
-  font-family: 'Great Vibes', cursive;
-  font-size: 24px;
-  line-height: 1.5;
-  color: #fff;
-  -webkit-text-stroke: 0.5px black;
-  text-stroke: 0.5px black;
-  opacity: 0;
-  white-space: pre-line;
-  text-align: right;
-  z-index: 5;
+  position:absolute;
+  bottom:15%;
+  right:5%;
+  font-family:'Great Vibes',cursive;
+  font-size:4vw;
+  line-height:1.5;
+  color:#fff;
+  -webkit-text-stroke:0.5px black;
+  text-stroke:0.5px black;
+  opacity:0;
+  white-space:pre-line;
+  text-align:right;
+  z-index:5;
 }
 
 /* Heart Capsule Track */
 #heartTrack {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80%;
-  max-width: 600px;
-  height: 40px;
+  position:absolute;
+  bottom:5%;
+  left:50%;
+  transform:translateX(-50%);
+  width:80%;
+  max-width:600px;
+  height:6vw;
   background: rgba(255,182,193,0.3);
-  border-radius: 30px;
-  z-index: 8;
+  border-radius: 50px;
+  z-index:8;
 }
 
 /* Heart Swipe */
 #heartSwipe {
-  position: absolute;
-  bottom: 40px;
-  left: 0px;
-  font-size: 50px;
-  cursor: pointer;
-  z-index: 9;
-  user-select: none;
-  -webkit-user-select: none;
-  -webkit-tap-highlight-color: transparent;
+  position:absolute;
+  bottom:5%;
+  left:0px;
+  font-size:10vw;
+  cursor:pointer;
+  z-index:9;
+  user-select:none;
+  -webkit-user-select:none;
+  -webkit-tap-highlight-color:transparent;
   background: linear-gradient(135deg, pink 50%, white 50%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 1px 1px 0 black;
+  text-shadow:1px 1px 0 black;
 }
 </style>
 </head>
@@ -114,12 +115,12 @@ canvas {
 <div id="praiseText"></div>
 <div id="praiseTextRight"></div>
 
-
 <div id="heartTrack"></div>
 <div id="heartSwipe">♥</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script>
+// Canvas setup
 const clickCanvas = document.getElementById('clickCanvas');  
 const ctx = clickCanvas.getContext('2d');  
 function resizeCanvas() {  
@@ -129,6 +130,7 @@ function resizeCanvas() {
 resizeCanvas();  
 window.addEventListener('resize', resizeCanvas);  
 
+// Background gradient animation
 let bgAngle = 120;  
 let bgColors = [  
   { start: "#ff9ad6", middle: "#ffffff", end: "#1a1a1a" },  
@@ -152,6 +154,7 @@ function animateBackground() {
 }  
 animateBackground();  
 
+// Particles
 class Particle {  
   constructor(x,y,color='rgba(255,182,193,1)'){  
     this.x = x;  
@@ -188,19 +191,36 @@ function animateParticles(){
 }  
 animateParticles();  
 
-let isDrawing = false;  
 function addParticles(x,y){  
   for(let i=0;i<3;i++){ 
     particles.push(new Particle(x + Math.random()*10-5, y + Math.random()*10-5));  
   }  
 }  
-document.body.addEventListener('mousedown', e=>{ isDrawing=true; addParticles(e.clientX,e.clientY); });  
-document.body.addEventListener('mousemove', e=>{ if(isDrawing) addParticles(e.clientX,e.clientY); });  
-document.body.addEventListener('mouseup', ()=>{ isDrawing=false; });  
-document.body.addEventListener('touchstart', e=>{ isDrawing=true; addParticles(e.touches[0].clientX,e.touches[0].clientY); });  
-document.body.addEventListener('touchmove', e=>{ if(isDrawing){ e.preventDefault(); addParticles(e.touches[0].clientX,e.touches[0].clientY); } });  
-document.body.addEventListener('touchend', ()=>{ isDrawing=false; });  
 
+let isDrawing = false;  
+['mousedown','touchstart'].forEach(ev=>{
+  document.body.addEventListener(ev, e=>{ 
+    isDrawing=true; 
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    addParticles(clientX, clientY);
+  });
+});
+['mousemove','touchmove'].forEach(ev=>{
+  document.body.addEventListener(ev, e=>{ 
+    if(isDrawing){
+      e.preventDefault();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      addParticles(clientX, clientY);
+    }
+  });
+});
+['mouseup','touchend'].forEach(ev=>{
+  document.body.addEventListener(ev, ()=>{ isDrawing=false; });
+});
+
+// Typing effect
 function typeText(element, text, delay=70, callback=null){
   let i=0;
   gsap.to(element,{opacity:1,duration:1});
@@ -226,77 +246,58 @@ gsap.to(heading,{opacity:1,duration:1,delay:0.5,scale:1.05,ease:"power2.out",onC
   });
 }});
 
+// Heart Swipe
 const heart = document.getElementById('heartSwipe');
 const track = document.getElementById('heartTrack');
 let dragging = false, startX=0;
-const maxOffset = track.offsetWidth - heart.offsetWidth;
-
 function createHeartTrail(x,y){
   for(let i=0;i<3;i++){
     particles.push(new Particle(x + Math.random()*6-3, y + Math.random()*6-3, 'pink'));
   }
 }
-
 function setHeartPosition(offset){
+  const maxOffset = track.offsetWidth - heart.offsetWidth;
   heart.style.left = `${Math.min(Math.max(offset,0), maxOffset)}px`;
 }
-
 function shakeHeart(){
-  gsap.fromTo(heart,{x:0, rotation:0},{x:0, rotation:15, duration:0.05, yoyo:true, repeat:5, onComplete:()=>{
-    gsap.to(heart,{scale:1,duration:0.2});
-  }});
+  gsap.fromTo(heart,{x:0, rotation:0},{x:0, rotation:15, duration:0.05, yoyo:true, repeat:5, onComplete:()=>{ gsap.to(heart,{scale:1,duration:0.2}); }});
 }
 
-heart.addEventListener('mousedown', e=>{
-  dragging = true;
-  startX = e.clientX - heart.offsetLeft;
-  gsap.to(heart,{scale:1.5,duration:0.2});
-  shakeHeart();
+['mousedown','touchstart'].forEach(ev=>{
+  heart.addEventListener(ev,e=>{
+    dragging=true;
+    startX = e.touches ? e.touches[0].clientX - heart.offsetLeft : e.clientX - heart.offsetLeft;
+    gsap.to(heart,{scale:1.5,duration:0.2});
+    shakeHeart();
+  });
 });
-document.addEventListener('mousemove', e=>{
-  if(dragging){
-    let offset = e.clientX - startX;
-    setHeartPosition(offset);
-    createHeartTrail(offset + heart.offsetWidth/2, heart.offsetTop + heart.offsetHeight/2);
-    if(offset >= maxOffset - 5) window.location.href="love.html";
-  }
+['mousemove','touchmove'].forEach(ev=>{
+  document.addEventListener(ev,e=>{
+    if(dragging){
+      const offset = e.touches ? e.touches[0].clientX - startX : e.clientX - startX;
+      setHeartPosition(offset);
+      createHeartTrail(offset + heart.offsetWidth/2, heart.offsetTop + heart.offsetHeight/2);
+      if(offset >= track.offsetWidth - heart.offsetWidth - 5) window.location.href="love.html";
+    }
+  });
 });
-document.addEventListener('mouseup', ()=>{
-  dragging=false;
-  gsap.to(heart,{scale:1,duration:0.2});
-});
-
-heart.addEventListener('touchstart', e=>{
-  dragging = true;
-  startX = e.touches[0].clientX - heart.offsetLeft;
-  gsap.to(heart,{scale:1.5,duration:0.2});
-  shakeHeart();
-});
-document.addEventListener('touchmove', e=>{
-  if(dragging){
-    e.preventDefault();
-    let offset = e.touches[0].clientX - startX;
-    setHeartPosition(offset);
-    createHeartTrail(offset + heart.offsetWidth/2, heart.offsetTop + heart.offsetHeight/2);
-    if(offset >= maxOffset - 5) window.location.href="love.html";
-  }
-});
-document.addEventListener('touchend', ()=>{
-  dragging=false;
-  gsap.to(heart,{scale:1,duration:0.2});
+['mouseup','touchend'].forEach(ev=>{
+  document.addEventListener(ev,()=>{
+    dragging=false;
+    gsap.to(heart,{scale:1,duration:0.2});
+  });
 });
 </script>
-</body>
-</html>
+
 <script>
-// --- Cosmic slide effect ---
+// Cosmic particles
 const cosmicCanvas = document.createElement('canvas');
-cosmicCanvas.style.position = 'absolute';
-cosmicCanvas.style.top = '0';
-cosmicCanvas.style.left = '0';
-cosmicCanvas.style.width = '100%';
-cosmicCanvas.style.height = '100%';
-cosmicCanvas.style.pointerEvents = 'none';
+cosmicCanvas.style.position='absolute';
+cosmicCanvas.style.top='0';
+cosmicCanvas.style.left='0';
+cosmicCanvas.style.width='100%';
+cosmicCanvas.style.height='100%';
+cosmicCanvas.style.pointerEvents='none';
 document.body.appendChild(cosmicCanvas);
 
 const cctx = cosmicCanvas.getContext('2d');
@@ -306,27 +307,21 @@ window.addEventListener('resize', resizeCosmic);
 
 class CosmicParticle {
   constructor(x,y){
-    this.x=x;
-    this.y=y;
+    this.x=x; this.y=y;
     this.radius=Math.random()*4+2;
     this.vx=(Math.random()-0.5)*4;
     this.vy=(Math.random()-0.5)*4;
     this.alpha=1;
   }
   update(){ this.x+=this.vx; this.y+=this.vy; this.alpha-=0.02; }
-  draw(ctx){
-    ctx.beginPath();
-    ctx.fillStyle=`rgba(255,182,193,${this.alpha})`; // pink
-    ctx.arc(this.x,this.y,this.radius,0,Math.PI*2);
-    ctx.fill();
-  }
+  draw(ctx){ ctx.beginPath(); ctx.fillStyle=`rgba(255,182,193,${this.alpha})`; ctx.arc(this.x,this.y,this.radius,0,Math.PI*2); ctx.fill(); }
 }
 
-let cosmicParticles = [];
+let cosmicParticles=[];
 function animateCosmic(){
   cctx.clearRect(0,0,cosmicCanvas.width,cosmicCanvas.height);
   for(let i=cosmicParticles.length-1;i>=0;i--){
-    let p = cosmicParticles[i];
+    let p=cosmicParticles[i];
     p.update();
     p.draw(cctx);
     if(p.alpha<=0) cosmicParticles.splice(i,1);
@@ -335,18 +330,12 @@ function animateCosmic(){
 }
 animateCosmic();
 
-// Track sliding pointer
 let sliding=false;
-function addCosmic(x,y){
-  for(let i=0;i<5;i++){
-    cosmicParticles.push(new CosmicParticle(x+Math.random()*10-5, y+Math.random()*10-5));
-  }
-}
-document.body.addEventListener('mousedown', e=>{ sliding=true; addCosmic(e.clientX,e.clientY); });
-document.body.addEventListener('mousemove', e=>{ if(sliding) addCosmic(e.clientX,e.clientY); });
-document.body.addEventListener('mouseup', ()=>{ sliding=false; });
-
-document.body.addEventListener('touchstart', e=>{ sliding=true; let t=e.touches[0]; addCosmic(t.clientX,t.clientY); });
-document.body.addEventListener('touchmove', e=>{ if(sliding){ e.preventDefault(); let t=e.touches[0]; addCosmic(t.clientX,t.clientY); } });
-document.body.addEventListener('touchend', ()=>{ sliding=false; });
+function addCosmic(x,y){ for(let i=0;i<5;i++){ cosmicParticles.push(new CosmicParticle(x+Math.random()*10-5, y+Math.random()*10-5)); } }
+['mousedown','touchstart'].forEach(ev=>{ document.body.addEventListener(ev,e=>{ sliding=true; const x = e.touches ? e.touches[0].clientX : e.clientX; const y = e.touches ? e.touches[0].clientY : e.clientY; addCosmic(x,y); }); });
+['mousemove','touchmove'].forEach(ev=>{ document.body.addEventListener(ev,e=>{ if(sliding){ e.preventDefault(); const x = e.touches ? e.touches[0].clientX : e.clientX; const y = e.touches ? e.touches[0].clientY : e.clientY; addCosmic(x,y); } }); });
+['mouseup','touchend'].forEach(ev=>{ document.body.addEventListener(ev,()=>{ sliding=false; }); });
 </script>
+
+</body>
+</html>
