@@ -2,341 +2,307 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Happy Princess Day — Dear Wife</title>
+<title>Dear Princess — Cosmic Heart Swipe</title>
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
 <style>
-body{
-  margin:0;
-  padding:0;
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:linear-gradient(135deg,#ff8ac9,#ffffff,#000000);
-  overflow:hidden;
-  color:#fff;
-  text-align:center;
-  transition: background 0.3s linear;
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(120deg,#ff9ad6,#ffffff,#1a1a1a);
+  touch-action: none;
+  font-family: 'Poppins', sans-serif;
 }
-.container{
-  width:90%;
-  max-width:430px;
-  padding:25px 20px;
-  border:2px solid #fff;
-  border-radius:20px;
-  backdrop-filter:blur(5px);
-  position:relative;
-  z-index:2;
-  overflow:hidden;
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  pointer-events: none;
+  z-index: 1;
 }
-.heading{
-  font-family:'Poppins',sans-serif;
-  font-size:38px;
-  font-weight:800;
-  line-height:1.1;
-  opacity:0;
+
+/* Heading */
+#heading {
+  position: absolute;
+  top: 50px;
+  width: 100%;
+  text-align: center;
+  font-family: 'Great Vibes', cursive;
+  font-size: 70px;
+  color: #fff;
+  text-shadow: 0 0 6px rgba(255,255,255,.4), 0 0 14px rgba(255,255,255,.3), 0 0 24px rgba(255,255,255,.2);
+  opacity: 0;
+  z-index: 5;
 }
-.wife{
-  font-family:'Great Vibes',cursive;
-  font-size:85px;
-  margin-top:25px;
-  margin-bottom:40px;
-  color:#fff;
-  opacity:0;
-  text-shadow:0 0 6px rgba(255,255,255,.4),
-              0 0 14px rgba(255,255,255,.3),
-              0 0 24px rgba(255,255,255,.2);
-  position:relative;
-  overflow:visible;
+
+/* Praise text - center */
+#praiseText {
+  position: absolute;
+  top: 150px;
+  width: 90%;
+  max-width: 600px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Great Vibes', cursive;
+  font-size: 24px;
+  line-height: 1.5;
+  color: #fff;
+  -webkit-text-stroke: 0.5px black;
+  text-stroke: 0.5px black;
+  opacity: 0;
+  white-space: pre-line;
+  z-index: 5;
 }
-.wife::after{
-  content:"";
-  position:absolute;
-  bottom:-18px;
-  left:50%;
-  transform:translateX(-50%);
-  width:74%;
-  height:3.5px;
-  background:#fff;
-  border-radius:4px;
+
+/* Praise text - bottom right */
+#praiseTextRight {
+  position: absolute;
+  bottom: 150px;
+  right: 50px;
+  font-family: 'Great Vibes', cursive;
+  font-size: 24px;
+  line-height: 1.5;
+  color: #fff;
+  -webkit-text-stroke: 0.5px black;
+  text-stroke: 0.5px black;
+  opacity: 0;
+  white-space: pre-line;
+  text-align: right;
+  z-index: 5;
 }
-#typing{
-  font-family:'Poppins',sans-serif;
-  font-size:18px;
-  font-weight:300;
-  line-height:1.45;
-  margin-top:10px;
-  white-space:pre-line;
-  background:linear-gradient(180deg,#fff,#000);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  border-right:3px solid rgba(255,255,255,.9);
-  padding-right:4px;
-  animation:cursorBlink .8s infinite;
-  opacity:0;
+
+/* Heart Capsule Track */
+#heartTrack {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  max-width: 600px;
+  height: 40px;
+  background: rgba(255,182,193,0.3);
+  border-radius: 30px;
+  z-index: 8;
 }
-@keyframes cursorBlink{
-  0%{border-color:rgba(255,255,255,.9);}
-  50%{border-color:transparent;}
-  100%{border-color:rgba(255,255,255,.9);}
-}
-canvas{
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  z-index:1;
-  pointer-events:none;
-}
-#love{
-  font-family:'Great Vibes',cursive;
-  font-size:55px;
-  margin-top:-5px;
-  opacity:0;
-  position:relative;
-  color:#fff;
-  text-shadow:0 0 6px rgba(255,255,255,.8),
-              0 0 12px rgba(255,255,255,.5),
-              0 0 25px rgba(255,255,255,.35);
-}
-.glitter{
-  position:absolute;
-  width:6px;
-  height:6px;
-  background:pink;
-  border-radius:50%;
-  opacity:0.8;
-  pointer-events:none;
-}
-#crown{
-  position:absolute;
-  width:50px;
-  top:-60px;
-  left:50%;
-  transform:translateX(-50%);
-  opacity:0;
-  z-index:3;
-}
-#crownSparkle{
-  position:absolute;
-  width:100px;
-  height:100px;
-  top:-20px;
-  left:50%;
-  transform:translateX(-50%);
-  pointer-events:none;
-  z-index:4;
-}
-button#playLoveBtn{
-  padding:10px 20px;
-  font-size:18px;
-  font-family:'Poppins',sans-serif;
-  border:none;
-  border-radius:10px;
-  background: #ff8ac9;
-  color:#fff;
-  cursor:pointer;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  margin-top:20px;
+
+/* Heart Swipe */
+#heartSwipe {
+  position: absolute;
+  bottom: 40px;
+  left: 0px;
+  font-size: 50px;
+  cursor: pointer;
+  z-index: 9;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  background: linear-gradient(135deg, pink 50%, white 50%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 1px 1px 0 black;
 }
 </style>
 </head>
 <body>
 
-<canvas id="dust"></canvas>
+<canvas id="clickCanvas"></canvas>
 
-<div class="container">
-  <div class="heading" id="heading">Happy<br>Princess Day</div>
-  <div class="wife" id="wife">Dear Wife</div>
-  <div id="love">I Love You</div>
-  <div id="typing"></div>
+<div id="heading">Dear Princess</div>
+<div id="praiseText"></div>
+<div id="praiseTextRight"></div>
 
-  <!-- Crown SVG -->
-  <svg id="crown" viewBox="0 0 64 64" fill="gold">
-    <polygon points="2,62 62,62 54,20 44,42 32,12 20,42 10,20" stroke="orange" stroke-width="2"/>
-  </svg>
-  <canvas id="crownSparkle"></canvas>
-
-  <!-- Local audio button -->
-  <button id="playLoveBtn">Click Me 💖</button>
-  <audio id="loveSound" src="my.mp3" preload="auto" loop></audio>
-
-  <!-- Confused sound -->
-  <audio id="confusedSound" src="https://assets.mixkit.co/sfx/preview/mixkit-human-grunt-huh-huu-1027.mp3" preload="auto"></audio>
-</div>
+<div id="heartTrack"></div>
+<div id="heartSwipe">♥</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 <script>
-// particles.js setup
-particlesJS("dust", {
-  particles:{
-    number:{value:160,density:{enable:true,value_area:800}},
-    color:{value:["#ffffff","#ffd1ec","#ffb3f2"]},
-    shape:{type:"circle"},
-    opacity:{value:0.8,random:true},
-    size:{value:2,random:true},
-    line_linked:{enable:false},
-    move:{enable:true,speed:2,direction:"none",random:true,straight:false,out_mode:"out"}
-  },
-  interactivity:{events:{onhover:{enable:false},onclick:{enable:false}},modes:{}},
-  retina_detect:true
+// Canvas for particles
+const clickCanvas = document.getElementById('clickCanvas');  
+const ctx = clickCanvas.getContext('2d');  
+function resizeCanvas() {  
+  clickCanvas.width = window.innerWidth;  
+  clickCanvas.height = window.innerHeight;  
+}  
+resizeCanvas();  
+window.addEventListener('resize', resizeCanvas);  
+
+// Background animation
+let bgAngle = 120;  
+let bgColors = [  
+  { start: "#ff9ad6", middle: "#ffffff", end: "#1a1a1a" },  
+  { start: "#ffb3e0", middle: "#fff0f5", end: "#111111" },  
+  { start: "#ff85c1", middle: "#ffe6f0", end: "#000000" }  
+];  
+let bgIndex = 0;  
+function animateBackground() {  
+  let nextIndex = (bgIndex + 1) % bgColors.length;  
+  gsap.to("body", {  
+    background: `linear-gradient(${bgAngle}deg, ${bgColors[nextIndex].start}, ${bgColors[nextIndex].middle}, ${bgColors[nextIndex].end})`,  
+    duration: 3.5,  
+    ease: "sine.inOut",  
+    onComplete: () => {  
+      bgIndex = nextIndex;  
+      bgAngle += 10;  
+      if(bgAngle > 180) bgAngle = 120;  
+      animateBackground();  
+    }  
+  });  
+}  
+animateBackground();  
+
+// Particle class
+class Particle {  
+  constructor(x,y,color='rgba(255,182,193,1)'){  
+    this.x = x;  
+    this.y = y;  
+    this.radius = Math.random()*4+2;  
+    this.vx = (Math.random()-0.5)*2; 
+    this.vy = (Math.random()-0.5)*2;
+    this.alpha = 0.7;  
+    this.color = color;
+    this.gravity = 0.05; 
+  }  
+  update(){  
+    this.x += this.vx;  
+    this.y += this.vy + this.gravity;  
+    if(this.alpha>0.1) this.alpha -= 0.003;  
+  }  
+  draw(ctx){  
+    ctx.beginPath();  
+    ctx.fillStyle = this.color;  
+    ctx.arc(this.x,this.y,this.radius,0,Math.PI*2);  
+    ctx.fill();  
+  }  
+}  
+
+let particles = [];  
+function animateParticles(){  
+  ctx.clearRect(0,0,clickCanvas.width,clickCanvas.height);  
+  for(let i=particles.length-1;i>=0;i--){  
+    let p = particles[i];  
+    p.update();  
+    p.draw(ctx);  
+    if(p.alpha <= 0.05) particles.splice(i,1);  
+  }  
+  requestAnimationFrame(animateParticles);  
+}  
+animateParticles();  
+
+let isDrawing = false;  
+function addParticles(x,y){  
+  for(let i=0;i<3;i++){ 
+    particles.push(new Particle(x + Math.random()*10-5, y + Math.random()*10-5));  
+  }  
+}  
+
+// Mouse and touch events for particles
+['mousedown','touchstart'].forEach(evt => {
+  document.body.addEventListener(evt, e=>{
+    isDrawing=true; 
+    let x = e.clientX || e.touches[0].clientX;
+    let y = e.clientY || e.touches[0].clientY;
+    addParticles(x,y);
+  });
 });
 
-const heading = document.getElementById("heading");
-const wife = document.getElementById("wife");
-const typing = document.getElementById("typing");
-const love = document.getElementById("love");
-const crown = document.getElementById("crown");
-const crownCanvas = document.getElementById("crownSparkle");
-const crownCtx = crownCanvas.getContext("2d");
-const sound = document.getElementById("confusedSound");
-const loveAudio = document.getElementById("loveSound");
-const loveBtn = document.getElementById("playLoveBtn");
-
-crownCanvas.width = 100;
-crownCanvas.height = 100;
-
-// Fast moving gradient background
-let bgAngle = 135;
-let bgColors = [
-  { start: "#ff8ac9", middle: "#ffffff", end: "#000000" },
-  { start: "#ffb3f2", middle: "#ffe6f0", end: "#000000" },
-  { start: "#ff99d9", middle: "#ffffff", end: "#111111" }
-];
-let bgIndex = 0;
-function animateBackground() {
-  let nextIndex = (bgIndex + 1) % bgColors.length;
-  gsap.to("body", {
-    background: `linear-gradient(${bgAngle}deg, ${bgColors[nextIndex].start}, ${bgColors[nextIndex].middle}, ${bgColors[nextIndex].end})`,
-    duration: 4,
-    ease: "sine.inOut",
-    onComplete: () => { bgIndex = nextIndex; animateBackground(); }
-  });
-}
-animateBackground();
-
-// Typing text
-function typeText(){
-  let text=`A day of sparkle, softness and pure love.
-
-Today is all about smiles, glitter, warm lights and the gentle beauty of a queen-like feeling.
-
-Every moment is meant to make you feel special, adored and celebrated — just like the princess you are.`;
-  let i=0;
-  function typingEffect(){
-    if(i<text.length){
-      typing.innerHTML=text.substring(0,i+1);
-      i++;
-      setTimeout(typingEffect,85);
+['mousemove','touchmove'].forEach(evt=>{
+  document.body.addEventListener(evt, e=>{
+    if(isDrawing){
+      e.preventDefault();
+      let x = e.clientX || e.touches[0].clientX;
+      let y = e.clientY || e.touches[0].clientY;
+      addParticles(x,y);
     }
+  });
+});
+
+['mouseup','touchend'].forEach(evt=>{
+  document.body.addEventListener(evt, ()=>{ isDrawing=false; });
+});
+
+// Typewriter effect
+function typeText(element, text, delay=70, callback=null){
+  let i=0;
+  gsap.to(element,{opacity:1,duration:1});
+  function typing(){
+    if(i<text.length){
+      element.innerHTML = text.substring(0,i+1);
+      let rect = element.getBoundingClientRect();
+      addParticles(rect.left + Math.random()*rect.width, rect.top + Math.random()*rect.height);
+      i++;
+      setTimeout(typing, delay);
+    } else if(callback) callback();
   }
-  gsap.to(typing,{opacity:1,duration:1,delay:.3,onComplete:typingEffect});
+  typing();
 }
 
-// Animation sequence
-gsap.fromTo("#dust",{opacity:0},{opacity:1,duration:1});
-gsap.to("#dust",{opacity:0.4,duration:2,delay:0.5});
-gsap.to("#dust",{opacity:0.7,duration:2,delay:1.5,repeat:1,yoyo:true,onComplete:()=>{
-  gsap.to(heading,{opacity:1,duration:1.5,scale:1.05,ease:"power2.out"});
-  gsap.to("#dust",{opacity:0.3,duration:2,delay:1.5});
-  gsap.to(wife,{opacity:1,duration:1.5,delay:2.5,scale:1.05,ease:"power2.out"});
-  gsap.to("#dust",{opacity:0.2,duration:2,delay:3.5,onComplete:typeText});
+const heading = document.getElementById('heading');
+const praiseText = document.getElementById('praiseText');
+const praiseTextRight = document.getElementById('praiseTextRight');
+
+gsap.to(heading,{opacity:1,duration:1,delay:0.5,scale:1.05,ease:"power2.out",onComplete:()=>{
+  typeText(praiseText, `You are the beautiful light\nThat shines through every moment\nYour grace and charm inspire\nAll hearts around you`,70,()=>{
+    typeText(praiseTextRight, `Your smile is like sunshine\nYour words bring peace and joy\nYou uplift every soul nearby\nForever adored and loved`,70);
+  });
 }});
 
-// I LOVE YOU movement
-gsap.set("#love", { opacity: 0, scale: 0.55, rotation: -12 });
-let loveTL = gsap.timeline({ delay: 7.2 });
-loveTL.to("#love", { opacity: 1, duration: 0.6 })
-      .to("#love", { x: -45, duration: 0.6 })
-      .to("#love", { x: 55, duration: 0.7 })
-      .to("#love", { y: -18, rotation: 10, duration: 0.6 })
-      .to("#love", { y: 15, rotation: -8, duration: 0.6 })
-      .to("#love", { scale: 1.12, duration: 0.49 })
-      .to("#love", { scale: 0.92, duration: 0.42 })
-      .to("#love", { y: 8, rotation: -5, duration: 0.3 })
-      .to("#love", {
-        y: 0,
-        rotation: 0,
-        scale: 1,
-        duration: 1.4,
-        ease: "elastic.out(1, 0.35)",
-        onComplete: ()=>{ humanLikeMovement(love); }
-      });
+// Heart swipe logic
+const heart = document.getElementById('heartSwipe');
+const track = document.getElementById('heartTrack');
+let dragging = false, startX=0;
+let maxOffset = track.offsetWidth - heart.offsetWidth;
 
-function humanLikeMovement(target){
-  gsap.to(target, {
-    x: "+=" + (Math.random()*20 - 10),
-    y: "+=" + (Math.random()*20 - 10),
-    rotation: "+=" + (Math.random()*15 - 7),
-    duration: 0.3 + Math.random()*0.3,
-    ease: "power1.inOut",
-    repeat: 5,
-    yoyo: true,
-    onComplete: ()=> humanLikeMovement(target)
+function createHeartTrail(x,y){
+  for(let i=0;i<3;i++){
+    particles.push(new Particle(x + Math.random()*6-3, y + Math.random()*6-3, 'pink'));
+  }
+}
+
+function setHeartPosition(offset){
+  heart.style.left = `${Math.min(Math.max(offset,0), maxOffset)}px`;
+}
+
+function shakeHeart(){
+  gsap.fromTo(heart,{x:0, rotation:0},{x:0, rotation:15, duration:0.05, yoyo:true, repeat:5, onComplete:()=>{
+    gsap.to(heart,{scale:1,duration:0.2});
+  }});
+}
+
+// Update maxOffset on window resize
+window.addEventListener('resize', ()=>{ maxOffset = track.offsetWidth - heart.offsetWidth; });
+
+['mousedown','touchstart'].forEach(evt=>{
+  heart.addEventListener(evt,e=>{
+    dragging=true;
+    startX = (e.clientX || e.touches[0].clientX) - heart.offsetLeft;
+    gsap.to(heart,{scale:1.5,duration:0.2});
+    shakeHeart();
   });
-}
-
-// Glitter
-function createGlitter(){
-  for(let i=0;i<12;i++){
-    let g = document.createElement("div");
-    g.className="glitter";
-    wife.appendChild(g);
-    gsap.set(g,{
-      x: Math.random() * wife.offsetWidth,
-      y: Math.random() * wife.offsetHeight,
-      scale: Math.random()*0.8 + 0.2,
-      opacity: Math.random()
-    });
-    gsap.to(g,{
-      y: "-=" + (30 + Math.random()*20),
-      opacity:0,
-      duration:2 + Math.random(),
-      repeat:-1,
-      yoyo:true,
-      ease:"sine.inOut"
-    });
-  }
-}
-createGlitter();
-
-// Crown drop + sparkle
-gsap.set(crown,{y:-80,opacity:0});
-gsap.to(crown,{
-  y:0,
-  opacity:1,
-  duration:1.2,
-  delay:5.5,
-  ease:"bounce.out",
-  onComplete:()=>{
-    setInterval(()=>{
-      crownCtx.clearRect(0,0,100,100);
-      for(let i=0;i<5;i++){
-        crownCtx.fillStyle = "rgba(255,255,255,"+Math.random()+")";
-        let x = Math.random()*100;
-        let y = Math.random()*50;
-        let size = Math.random()*3+1;
-        crownCtx.beginPath();
-        crownCtx.arc(x,y,size,0,Math.PI*2);
-        crownCtx.fill();
-      }
-    },150);
-  }
 });
 
-// Confused sound on background click (first tap only)
-document.body.addEventListener('click', () => { sound.play(); }, { once: true });
-
-// **LOVE audio button**
-loveBtn.addEventListener('click', () => {
-  loveAudio.play().catch(e => console.log("Audio play blocked:", e));
+['mousemove','touchmove'].forEach(evt=>{
+  document.addEventListener(evt,e=>{
+    if(dragging){
+      e.preventDefault();
+      let offset = (e.clientX || e.touches[0].clientX) - startX;
+      setHeartPosition(offset);
+      createHeartTrail(offset + heart.offsetWidth/2, heart.offsetTop + heart.offsetHeight/2);
+      if(offset >= maxOffset - 5) window.location.href="love.html";
+    }
+  });
 });
-</script>
 
-<script>
-// --- Cosmic slide effect ---
+['mouseup','touchend'].forEach(evt=>{
+  document.addEventListener(evt, ()=>{
+    dragging=false;
+    gsap.to(heart,{scale:1,duration:0.2});
+  });
+});
+
+// Cosmic slide effect
 const cosmicCanvas = document.createElement('canvas');
 cosmicCanvas.style.position = 'absolute';
 cosmicCanvas.style.top = '0';
@@ -345,7 +311,6 @@ cosmicCanvas.style.width = '100%';
 cosmicCanvas.style.height = '100%';
 cosmicCanvas.style.pointerEvents = 'none';
 document.body.appendChild(cosmicCanvas);
-
 const cctx = cosmicCanvas.getContext('2d');
 function resizeCosmic(){ cosmicCanvas.width = window.innerWidth; cosmicCanvas.height = window.innerHeight; }
 resizeCosmic();
@@ -353,7 +318,8 @@ window.addEventListener('resize', resizeCosmic);
 
 class CosmicParticle {
   constructor(x,y){
-    this.x=x; this.y=y;
+    this.x=x;
+    this.y=y;
     this.radius=Math.random()*4+2;
     this.vx=(Math.random()-0.5)*4;
     this.vy=(Math.random()-0.5)*4;
@@ -387,14 +353,25 @@ function addCosmic(x,y){
     cosmicParticles.push(new CosmicParticle(x+Math.random()*10-5, y+Math.random()*10-5));
   }
 }
-document.body.addEventListener('mousedown', e=>{ sliding=true; addCosmic(e.clientX,e.clientY); });
-document.body.addEventListener('mousemove', e=>{ if(sliding) addCosmic(e.clientX,e.clientY); });
-document.body.addEventListener('mouseup', ()=>{ sliding=false; });
-
-document.body.addEventListener('touchstart', e=>{ sliding=true; let t=e.touches[0]; addCosmic(t.clientX,t.clientY); });
-document.body.addEventListener('touchmove', e=>{ if(sliding){ e.preventDefault(); let t=e.touches[0]; addCosmic(t.clientX,t.clientY); } });
-document.body.addEventListener('touchend', ()=>{ sliding=false; });
+['mousedown','touchstart'].forEach(evt=>{
+  document.body.addEventListener(evt, e=>{
+    sliding=true;
+    let t = e.touches ? e.touches[0] : e;
+    addCosmic(t.clientX, t.clientY);
+  });
+});
+['mousemove','touchmove'].forEach(evt=>{
+  document.body.addEventListener(evt, e=>{
+    if(sliding){
+      e.preventDefault();
+      let t = e.touches ? e.touches[0] : e;
+      addCosmic(t.clientX, t.clientY);
+    }
+  });
+});
+['mouseup','touchend'].forEach(evt=>{
+  document.body.addEventListener(evt, ()=>{ sliding=false; });
+});
 </script>
-
 </body>
 </html>
